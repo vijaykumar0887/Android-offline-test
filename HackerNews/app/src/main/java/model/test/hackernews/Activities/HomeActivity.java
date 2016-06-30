@@ -10,9 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import model.test.hackernews.R;
+import model.test.hackernews.Utils.LogUtils;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = HomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +48,34 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        /*if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (item.getItemId()){
+            case R.id.nav_top :
+                LogUtils.LOGI(TAG,"top stories");
+                break;
 
-        } else if (id == R.id.nav_slideshow) {
+            case R.id.nav_new :
+                LogUtils.LOGI(TAG,"new stories");
+                break;
 
-        } else if (id == R.id.nav_manage) {
+            case R.id.nav_best :
+                LogUtils.LOGI(TAG,"besrt stories");
+                break;
 
-        } else if (id == R.id.nav_share) {
+            case R.id.nav_ask :
+                LogUtils.LOGI(TAG,"ask stories");
+                break;
+            case R.id.nav_show :
+                LogUtils.LOGI(TAG,"show stories");
+                break;
+            case R.id.nav_jobs :
+                LogUtils.LOGI(TAG,"jobs stories");
+                break;
 
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
