@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,8 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String TAG = HomeActivity.class.getSimpleName();
     private StoriesAdapter mStoriesAdapter;
+    private String selectedType = Constants.TOP_STORIES_ENDPOINT;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     @Override
@@ -38,6 +41,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initViews();
+
         loadStories(Constants.TOP_STORIES_ENDPOINT);
     }
 
@@ -58,6 +62,21 @@ public class HomeActivity extends AppCompatActivity
         storiesRecycler.setLayoutManager(linearLayoutManager);
         mStoriesAdapter = new StoriesAdapter(this,new ArrayList<Integer>(),this);
         storiesRecycler.setAdapter(mStoriesAdapter);
+
+         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        loadStories(selectedType);
+                    }
+                }
+        );
+
     }
 
     @Override
@@ -79,34 +98,35 @@ public class HomeActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.nav_top :
                 LogUtils.LOGI(TAG,"top stories");
-                loadStories(Constants.TOP_STORIES_ENDPOINT);
+                selectedType = Constants.TOP_STORIES_ENDPOINT;
                 break;
 
             case R.id.nav_new :
                 LogUtils.LOGI(TAG,"new stories");
-                loadStories(Constants.NEW_STORIES_ENDPOINT);
+                selectedType = Constants.NEW_STORIES_ENDPOINT;
                 break;
 
             case R.id.nav_best :
                 LogUtils.LOGI(TAG,"besrt stories");
-                loadStories(Constants.BEST_STORIES_ENDPOINT);
+                selectedType = Constants.BEST_STORIES_ENDPOINT;
                 break;
 
             case R.id.nav_ask :
                 LogUtils.LOGI(TAG,"ask stories");
-                loadStories(Constants.ASK_ENDPOINT);
+                selectedType = Constants.ASK_ENDPOINT;
                 break;
             case R.id.nav_show :
                 LogUtils.LOGI(TAG,"show stories");
-                loadStories(Constants.SHOW_ENDPOINT);
+                selectedType = Constants.SHOW_ENDPOINT;
                 break;
             case R.id.nav_jobs :
                 LogUtils.LOGI(TAG,"jobs stories");
-                loadStories(Constants.JOBS_ENDPOINT);
+                selectedType = Constants.SHOW_ENDPOINT;
                 break;
 
         }
-
+            showProgress();
+            loadStories(selectedType);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -114,23 +134,26 @@ public class HomeActivity extends AppCompatActivity
 
 
     private void loadStories(String storyType){
-        showProgress();
+
         if(NetworkCheckUtility.isNetworkAvailable(this)) {
             NetworkAdapter.getInstance().getStories(this,storyType, new StoriesResponseListener() {
                 @Override
                 public void onSuccess(List<Integer> results) {
                     updateStoryBoard(results);
                     hideProgress();
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onFailure() {
                     hideProgress();
+                    mSwipeRefreshLayout.setRefreshing(false);
                     showNetworkError("Unable to load the data");
                 }
             });
         }else{
             hideProgress();
+            mSwipeRefreshLayout.setRefreshing(false);
             showNoNetworkDialog();
         }
     }

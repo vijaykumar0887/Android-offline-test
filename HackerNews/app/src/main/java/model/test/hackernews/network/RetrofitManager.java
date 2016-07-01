@@ -19,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitManager {
     private static RetrofitManager ourInstance = new RetrofitManager();
-    private Retrofit mRetrofit;
     private static  Context mContext;
 
     public static RetrofitManager getInstance() {
@@ -29,18 +28,17 @@ public class RetrofitManager {
     private RetrofitManager() {
     }
 
-    public Retrofit getRetroObject(Context context){
-
-        mContext = context;
-        if(mRetrofit == null){
-            mRetrofit = new Retrofit.Builder()
+    public Retrofit getRetroObject(Context context,boolean isCacheEnabled){
+            mContext = context;
+        Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(getClient())
-                    .build();
-        }
+                    .addConverterFactory(GsonConverterFactory.create());
 
-        return mRetrofit;
+            if(isCacheEnabled){
+                builder.client(getCachingClient());
+            }
+
+        return builder.build();
     }
 
 
@@ -63,7 +61,7 @@ public class RetrofitManager {
             }
         }
     };
-        private static OkHttpClient getClient(){
+        private static OkHttpClient getCachingClient(){
             OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
             clientBuilder.addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR);
 

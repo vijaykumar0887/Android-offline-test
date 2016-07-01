@@ -27,7 +27,7 @@ public class NetworkAdapter {
 
 
     public void getStories(Context context, String endPoint, final StoriesResponseListener listener){
-        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context).create(ApiEndPointInterface.class);
+        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context,false).create(ApiEndPointInterface.class);
 
         Call<List<Integer>> call = apiService.getStories(endPoint);
         call.enqueue(new Callback<List<Integer>>() {
@@ -52,7 +52,7 @@ public class NetworkAdapter {
 
 
     public void getDetails(Context context,String itemId, final ArticleResponseListener listener){
-        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context).create(ApiEndPointInterface.class);
+        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context,true).create(ApiEndPointInterface.class);
 
         Call<Article> call = apiService.getArticleDetails(itemId);
         call.enqueue(new Callback<Article>() {
