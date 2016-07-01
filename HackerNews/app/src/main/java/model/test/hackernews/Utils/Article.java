@@ -26,7 +26,7 @@ public class Article {
     @SerializedName("text")
     private String mText;
     @SerializedName("time")
-    private Integer mTime;
+    private Long mTime;
     @SerializedName("title")
     private String mTitle;
     @SerializedName("type")
@@ -90,11 +90,11 @@ public class Article {
         mText = text;
     }
 
-    public Integer getTime() {
+    public Long getTime() {
         return mTime;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(Long time) {
         mTime = time;
     }
 
