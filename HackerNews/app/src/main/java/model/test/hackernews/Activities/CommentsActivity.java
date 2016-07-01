@@ -35,7 +35,7 @@ public class CommentsActivity extends AppCompatActivity {
         commentsList.setLayoutManager(linearLayoutManager);
 
         if(getIntent().getIntegerArrayListExtra(Constants.COMMENT_IDS) != null ){
-            CommentsAdapter commentsAdapter = new CommentsAdapter(getIntent().getIntegerArrayListExtra(Constants.COMMENT_IDS));
+            CommentsAdapter commentsAdapter = new CommentsAdapter(this,getIntent().getIntegerArrayListExtra(Constants.COMMENT_IDS));
             commentsList.setAdapter(commentsAdapter);
         }
 

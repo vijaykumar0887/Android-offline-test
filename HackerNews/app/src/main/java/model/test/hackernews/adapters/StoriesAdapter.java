@@ -2,6 +2,7 @@
 
 package model.test.hackernews.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,12 @@ import model.test.hackernews.network.OnStoryBoardItemClickListener;
 public class StoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private static final String TAG = StoriesAdapter.class.getSimpleName();
+    private Context mContext;
     List<Integer> mStoriesList;
     private OnStoryBoardItemClickListener mListener;
 
-    public StoriesAdapter( List<Integer> items,OnStoryBoardItemClickListener listener) {
+    public StoriesAdapter(Context context, List<Integer> items,OnStoryBoardItemClickListener listener) {
+        mContext = context;
         mStoriesList = items;
         mListener = listener;
     }
@@ -44,7 +47,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             final StoryItemHolder storyItemHolder = (StoryItemHolder) holder;
         final Article[] articleData = new Article[1];
         storyItemHolder.mProgressBar.setVisibility(View.VISIBLE);
-        NetworkAdapter.getInstance().getDetails(String.valueOf(itemId), new ArticleResponseListener() {
+        NetworkAdapter.getInstance().getDetails(mContext,String.valueOf(itemId), new ArticleResponseListener() {
             @Override
             public void onSuccess(Article result) {
                 articleData[0] = result;

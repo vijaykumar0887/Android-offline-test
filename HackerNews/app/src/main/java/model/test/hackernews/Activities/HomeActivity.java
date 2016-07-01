@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
         RecyclerView storiesRecycler = (RecyclerView) findViewById(R.id.rv_stories);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         storiesRecycler.setLayoutManager(linearLayoutManager);
-        mStoriesAdapter = new StoriesAdapter(new ArrayList<Integer>(),this);
+        mStoriesAdapter = new StoriesAdapter(this,new ArrayList<Integer>(),this);
         storiesRecycler.setAdapter(mStoriesAdapter);
     }
 
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity
     private void loadStories(String storyType){
         showProgress();
         if(NetworkCheckUtility.isNetworkAvailable(this)) {
-            NetworkAdapter.getInstance().getStories(storyType, new StoriesResponseListener() {
+            NetworkAdapter.getInstance().getStories(this,storyType, new StoriesResponseListener() {
                 @Override
                 public void onSuccess(List<Integer> results) {
                     updateStoryBoard(results);

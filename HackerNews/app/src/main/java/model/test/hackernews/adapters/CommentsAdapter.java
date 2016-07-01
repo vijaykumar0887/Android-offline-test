@@ -2,6 +2,7 @@
 
 package model.test.hackernews.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,10 +20,11 @@ import model.test.hackernews.network.ArticleResponseListener;
 import model.test.hackernews.network.NetworkAdapter;
 
 public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-
+    private Context mContext;
     List<Integer> mCommentIds;
 
-    public CommentsAdapter( List<Integer> items) {
+    public CommentsAdapter(Context context, List<Integer> items) {
+        mContext = context;
         mCommentIds = items;
     }
 
@@ -39,7 +41,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final CommenttemHolder commenttemHolder = (CommenttemHolder) holder;
         final Article[] articleData = new Article[1];
         commenttemHolder.mProgressBar.setVisibility(View.VISIBLE);
-        NetworkAdapter.getInstance().getDetails(String.valueOf(itemId), new ArticleResponseListener() {
+        NetworkAdapter.getInstance().getDetails(mContext,String.valueOf(itemId), new ArticleResponseListener() {
             @Override
             public void onSuccess(Article result) {
                 articleData[0] = result;

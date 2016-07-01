@@ -1,5 +1,7 @@
 package model.test.hackernews.network;
 
+import android.content.Context;
+
 import java.util.List;
 
 import model.test.hackernews.Utils.Article;
@@ -24,8 +26,8 @@ public class NetworkAdapter {
     }
 
 
-    public void getStories(String endPoint, final StoriesResponseListener listener){
-        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject().create(ApiEndPointInterface.class);
+    public void getStories(Context context, String endPoint, final StoriesResponseListener listener){
+        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context).create(ApiEndPointInterface.class);
 
         Call<List<Integer>> call = apiService.getStories(endPoint);
         call.enqueue(new Callback<List<Integer>>() {
@@ -34,10 +36,8 @@ public class NetworkAdapter {
                 int statusCode = response.code();
                if(statusCode == Constants.SUCCESS){
                    listener.onSuccess(response.body());
-                  // LogUtils.LOGI(TAG," stories response : "+response.body());
                }else{
                    listener.onFailure();
-                  // LogUtils.LOGI(TAG," stories failure : ");
                }
 
             }
@@ -51,8 +51,8 @@ public class NetworkAdapter {
     }
 
 
-    public void getDetails(String itemId, final ArticleResponseListener listener){
-        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject().create(ApiEndPointInterface.class);
+    public void getDetails(Context context,String itemId, final ArticleResponseListener listener){
+        ApiEndPointInterface apiService = RetrofitManager.getInstance().getRetroObject(context).create(ApiEndPointInterface.class);
 
         Call<Article> call = apiService.getArticleDetails(itemId);
         call.enqueue(new Callback<Article>() {
@@ -61,10 +61,8 @@ public class NetworkAdapter {
                 int statusCode = response.code();
                 if(statusCode == Constants.SUCCESS){
                     listener.onSuccess(response.body());
-                   // LogUtils.LOGI(TAG," detail response : "+response.body());
                 }else{
                     listener.onFailure();
-                   // LogUtils.LOGI(TAG," stories failure");
                 }
 
             }
