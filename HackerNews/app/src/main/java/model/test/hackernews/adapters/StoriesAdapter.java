@@ -14,7 +14,6 @@ import java.util.List;
 
 import model.test.hackernews.R;
 import model.test.hackernews.Utils.Article;
-import model.test.hackernews.Utils.LogUtils;
 import model.test.hackernews.Utils.TimeUtils;
 import model.test.hackernews.network.ArticleResponseListener;
 import model.test.hackernews.network.NetworkAdapter;
@@ -56,11 +55,10 @@ public class StoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     storyItemHolder.txtTitle.setText(result.getTitle());
                 }
                 if (result.getTime() != null) {
-                    LogUtils.LOGI(TAG,"time : " + result.getTime());
                     storyItemHolder.txtTime.setText(TimeUtils.getTimeDifferenceToPresent(result.getTime()));
                 }
                 if (result.getBy() != null) {
-                    storyItemHolder.txtAuthor.setText(result.getBy());
+                    storyItemHolder.txtAuthor.setText(mContext.getString(R.string.author).concat(" ").concat(result.getBy()));
                 }
                 if (result.getScore() != null) {
                     storyItemHolder.txtPoints.setText(String.valueOf(result.getScore()));

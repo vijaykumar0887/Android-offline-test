@@ -65,6 +65,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
             android:layout_centerInParent="true"/>
+
+
+        <LinearLayout
+            android:id="@+id/latestReply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_item_comment"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
     </RelativeLayout>
 
 
