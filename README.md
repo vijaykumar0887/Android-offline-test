@@ -5,14 +5,14 @@ Hacker News by YCombinator is one of the most popular sources of tech news for 
 
 Following Fetaures has been implemented:
 
-1.View all  top stories,new stories, best stories, ask, jobs, show.
+ View all  top stories,new stories, best stories, ask, jobs, show.
 
-2. view comments with latest reply by tapping list item.
+ View comments with latest reply by tapping list item.
 
-3. Detail news about topic by tapping link inlist item.
+ Detail news about topic by tapping link inlist item.
 
-4. Response caching for item data and comments.
+ Response caching for item data and comments.
 
-5. unit testing with roboelctric .
+ Unit testing with roboelctric .
 
-6. Material design UI.
+ Material design UI.
