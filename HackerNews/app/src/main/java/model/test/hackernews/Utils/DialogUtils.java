@@ -45,46 +45,6 @@ public class DialogUtils {
         }
     }
 
-
-    /**
-     * Dialog to handle default alert messages.
-     *
-     * @param context                  Calling context.
-     * @param title                    Title of dialog.
-     * @param message                  Message to display in dialog.
-     * @param positiveBtnText          Positive button text. Can be null for hiding this button in dialog.
-     * @param positiveBtnClickListener Listener for handling positive button click.
-     * @param negativeBtnText          Negative button text. Can be null for hiding this button in dialog.
-     * @param negativeBtnClickListener Listener for handling negative button click.
-     * @param cancelable               Boolean for blocking or non-blocking dialog.
-     */
-    public static void showDefaultAlertDialog(Context context, String title, String message,
-                                              String positiveBtnText, DialogInterface.OnClickListener positiveBtnClickListener,
-                                              String negativeBtnText, DialogInterface.OnClickListener negativeBtnClickListener,
-                                              boolean cancelable) {
-        try {
-            if (mAlertDialog == null || !mAlertDialog.isShowing()) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                if (!TextUtils.isEmpty(title)) {
-                    alertDialogBuilder.setTitle(title);
-                }
-                if (!TextUtils.isEmpty(message)) {
-                    alertDialogBuilder.setMessage(message);
-                }
-                alertDialogBuilder
-                        .setCancelable(cancelable)
-                        .setPositiveButton(positiveBtnText, positiveBtnClickListener)
-                        .setNegativeButton(negativeBtnText, negativeBtnClickListener);
-                mAlertDialog = alertDialogBuilder.create();
-                mAlertDialog.show();
-            }
-        } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
-        } catch (WindowManager.BadTokenException bte) {
-            bte.printStackTrace();
-        }
-    }
-
     /**
      * To dismiss progress dialog associated with mProgressDialog instance.
      */
@@ -99,12 +59,6 @@ public class DialogUtils {
             bte.printStackTrace();
         }
     }
-
-
-
-
-
-
 
 
     /**

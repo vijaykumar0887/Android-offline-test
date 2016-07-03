@@ -42,7 +42,10 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         initViews();
 
+        showProgress();
+        setTitle(getString(R.string.top_stories));
         loadStories(Constants.TOP_STORIES_ENDPOINT);
+
     }
 
     private void initViews() {
@@ -99,29 +102,35 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_top :
                 LogUtils.LOGI(TAG,"top stories");
                 selectedType = Constants.TOP_STORIES_ENDPOINT;
+                setTitle(getString(R.string.top_stories));
                 break;
 
             case R.id.nav_new :
                 LogUtils.LOGI(TAG,"new stories");
                 selectedType = Constants.NEW_STORIES_ENDPOINT;
+                setTitle(getString(R.string.new_stories));
                 break;
 
             case R.id.nav_best :
                 LogUtils.LOGI(TAG,"besrt stories");
                 selectedType = Constants.BEST_STORIES_ENDPOINT;
+                setTitle(getString(R.string.best_stories));
                 break;
 
             case R.id.nav_ask :
                 LogUtils.LOGI(TAG,"ask stories");
                 selectedType = Constants.ASK_ENDPOINT;
+                setTitle(getString(R.string.ask));
                 break;
             case R.id.nav_show :
                 LogUtils.LOGI(TAG,"show stories");
                 selectedType = Constants.SHOW_ENDPOINT;
+                setTitle(getString(R.string.show));
                 break;
             case R.id.nav_jobs :
                 LogUtils.LOGI(TAG,"jobs stories");
-                selectedType = Constants.SHOW_ENDPOINT;
+                selectedType = Constants.JOBS_ENDPOINT;
+                setTitle(getString(R.string.jobs));
                 break;
 
         }
