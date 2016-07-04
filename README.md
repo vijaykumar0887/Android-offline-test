@@ -14,5 +14,7 @@ Following Fetaures has been implemented:
  Response caching for item data and comments.
 
  Unit testing with roboelctric .
+ 
+ Pull to refresh implementation in home screen.
 
  Material design UI.
